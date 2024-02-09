@@ -5,7 +5,7 @@ const url = require('url');
 const winston = require('winston');
 const sanitize = require('sanitize-html');
 const _ = require('lodash');
-
+const Filter = require('bad-words');
 const meta = require('../meta');
 const plugins = require('../plugins');
 const translator = require('../translator');
@@ -109,7 +109,8 @@ module.exports = function (Posts) {
     };
 
     Posts.sanitize = function (content) {
-        return sanitize(content, {
+        const filter = new Filter();
+        return sanitize(filter.clean(content), {
             allowedTags: sanitizeConfig.allowedTags,
             allowedAttributes: sanitizeConfig.allowedAttributes,
             allowedClasses: sanitizeConfig.allowedClasses,
