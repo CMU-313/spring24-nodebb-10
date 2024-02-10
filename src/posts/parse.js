@@ -10,6 +10,7 @@ const meta = require('../meta');
 const plugins = require('../plugins');
 const translator = require('../translator');
 const utils = require('../utils');
+const katex = require('katex'); // Added for latex rendering in posts
 
 let sanitizeConfig = {
     allowedTags: sanitize.defaults.allowedTags.concat([
@@ -60,12 +61,35 @@ module.exports = function (Posts) {
             return postData;
         }
 
+        // Function added for latex rendering in posts
+        const renderLatex = function(postData) {
+
+            const block = /\$\$([\s\S]*?)\$\$/g;
+            const inline = /\$([\s\S]*?)\$/g;
+
+            const replaceBlock = function(match, p1, offset, string) {
+                // chose to only render using mathml, sacrificing compatibility
+                // with older browsers for better performance
+                return katex.renderToString(p1, {displayMode: true, output: 'mathml'});
+            };
+            const replaceInline = function(match, p1, offset, string) {
+                return katex.renderToString(p1, {displayMode: false, output: 'mathml'});
+            }
+            try {
+                postData.content = postData.content.replace(block, replaceBlock).replace(inline, replaceInline);
+            } catch(a) {
+                winston.verbose(a.message);
+            }
+        }
+
         const data = await plugins.hooks.fire('filter:parse.post', { postData: postData });
+
+        renderLatex(data.postData); // render latex just before we translate the content
+
         data.postData.content = translator.escape(data.postData.content);
         if (data.postData.pid) {
             cache.set(pid, data.postData.content);
         }
-
 
         return data.postData;
     };
