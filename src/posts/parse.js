@@ -65,6 +65,8 @@ module.exports = function (Posts) {
         if (data.postData.pid) {
             cache.set(pid, data.postData.content);
         }
+
+
         return data.postData;
     };
 
