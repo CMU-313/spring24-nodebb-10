@@ -9,6 +9,10 @@
         </span>
         <br/>
 
+        </span>
+        <a href="{config.relative_path}/user/{users.userslug}">{users.accounttype}</a>
+        </span>
+        
         <!-- IF section_online -->
         <div class="lastonline">
             <span class="timeago" title="{users.lastonlineISO}"></span>
