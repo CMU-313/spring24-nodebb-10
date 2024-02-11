@@ -108,9 +108,18 @@ module.exports = function (Posts) {
         return content;
     };
 
-    Posts.sanitize = function (content) {
+    function filterProfanity(content)
+    //string -> string
+    {
         const filter = new Filter();
-        return sanitize(filter.clean(content), {
+        const cleaned = filter.clean(content);
+        assert(typeof cleaned === 'string');
+        return cleaned;
+    }
+
+    Posts.sanitize = function (content) {
+        
+        return sanitize(filterProfanity(content), {
             allowedTags: sanitizeConfig.allowedTags,
             allowedAttributes: sanitizeConfig.allowedAttributes,
             allowedClasses: sanitizeConfig.allowedClasses,
