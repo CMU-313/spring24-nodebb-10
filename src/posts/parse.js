@@ -48,7 +48,37 @@ module.exports = function (Posts) {
         length: 5,
     };
 
-    Posts.parsePost = async function (postData) {
+    /*
+       * Parses a post object, sanitizing its content, replacing relative links with absolute URLs
+       * and rendering LaTeX code into MathML using KaTeX.
+       * @param {object} postData - the post object
+       * @return {object} postData - the sanitized/rendered post object
+   */
+  /*
+   Type definition for the postData object:
+       type PostObject = {
+           pid: number;
+           tid: number;
+           content: string;
+           uid: number;
+           timestamp: number;
+           deleted: boolean;
+           upvotes: number;
+           downvotes: number;
+           votes: number;
+           timestampISO: string;
+           user: UserObjectSlim;
+           topic: TopicObject;
+           category: CategoryObject;
+           isMainPost: boolean;
+           replies: number;
+       };
+  */
+   Posts.parsePost = async function (postData) {
+        // Assert the type of input is correct, and that the content is a string
+        console.assert(typeof postData === 'object', 'postData.pid is not an object');
+        console.assert(typeof postData.content === 'string', 'postData.content is not a string');
+
         if (!postData) {
             return postData;
         }
@@ -61,11 +91,18 @@ module.exports = function (Posts) {
             return postData;
         }
 
-        // Function added for latex rendering in posts
+        /*
+            * Renders LaTeX code into MathML using KaTeX
+            * @param {object} postData - the post object, same type definition as input to Post.parsePost
+            * @return {object} postData - the post object with LaTeX code rendered into MathML
+            * @throws {Error} - if the rendering fails
+        */
         const renderLatex = function(postData) {
+            console.assert(typeof postData === 'object', 'postData.pid is not an object');
+            console.assert(typeof postData.content === 'string', 'postData.content is not a string');
 
-            const block = /\$\$([\s\S]*?)\$\$/g;
-            const inline = /\$([\s\S]*?)\$/g;
+            const block = /\$\$([\s\S]*?)\$\$/g; // regex to match $$...$$
+            const inline = /\$([\s\S]*?)\$/g; // regex to match $...$
 
             const replaceBlock = function(match, p1, offset, string) {
                 // chose to only render using mathml, sacrificing compatibility
@@ -80,7 +117,11 @@ module.exports = function (Posts) {
             } catch(a) {
                 winston.verbose(a.message);
             }
+
+            console.assert(typeof postData === 'object', 'postData is not an object');
+            console.assert(typeof postData.content === 'string', 'postData.content is not a string');
         }
+
 
         const data = await plugins.hooks.fire('filter:parse.post', { postData: postData });
 
@@ -91,8 +132,14 @@ module.exports = function (Posts) {
             cache.set(pid, data.postData.content);
         }
 
+        // Only asserting type of postData.content because that's the only thing we're changing
+        // in this sprint.
+        console.assert(typeof data.postData === 'object', 'postData.content is not an object');
+        console.assert(data.postData.content, 'postData.content is not a string');
         return data.postData;
     };
+
+
 
     Posts.parseSignature = async function (userData, uid) {
         userData.signature = sanitizeSignature(userData.signature || '');
