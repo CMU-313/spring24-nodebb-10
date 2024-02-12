@@ -113,7 +113,7 @@ module.exports = function (Posts) {
     {
         const filter = new Filter();
         const cleaned = filter.clean(content);
-        assert(typeof cleaned === 'string');
+        console.assert(typeof cleaned === 'string');
         return cleaned;
     }
 
