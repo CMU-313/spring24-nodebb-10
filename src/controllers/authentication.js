@@ -72,7 +72,10 @@ async function registerAndLoginUser(req, res, userData) {
 }
 
 authenticationController.register = async function (req, res) {
+    console.assert(typeof req === 'object');
+    console.assert(typeof res === 'object');
     const registrationType = meta.config.registrationType || 'normal';
+    console.assert(typeof registrationType === 'string', "registration type must be a string");
 
     if (registrationType === 'disabled') {
         return res.sendStatus(403);
@@ -108,8 +111,12 @@ authenticationController.register = async function (req, res) {
             (userData['account-type'] !== 'student' && userData['account-type'] !== 'instructor' && userData['account-type'] !== 'TA')) {
             throw new Error('Invalid account type');
         }
+        //account-type should be string
 
-        user.isPasswordValid(userData.password);
+        const isValid = user.isPasswordValid(userData.password);
+        if(typeof isValid !== 'undefined'){
+            console.assert(typeof isValid === 'boolean');
+        }
 
         res.locals.processLogin = true; // set it to false in plugin if you wish to just register only
         await plugins.hooks.fire('filter:register.check', { req: req, res: res, userData: userData });
@@ -124,6 +131,11 @@ authenticationController.register = async function (req, res) {
     } catch (err) {
         helpers.noScriptErrors(req, res, err.message, 400);
     }
+    //console.log(typeof userData.username);
+    console.assert(typeof userData.username === 'string');
+    console.assert(typeof userData.username.length === 'number');
+    console.assert(typeof userData.password.length === 'number');
+    console.assert(typeof userData.password === 'string', 'password must be a string');
 };
 
 async function addToApprovalQueue(req, userData) {
