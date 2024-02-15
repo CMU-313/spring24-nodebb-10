@@ -75,7 +75,7 @@ module.exports = function (Posts) {
            replies: number;
        };
     */
-   Posts.parsePost = async function (postData) {
+    Posts.parsePost = async function (postData) {
         // Assert the type of input is correct, and that the content is a string
         console.assert(typeof postData === 'object', 'postData.pid is not an object');
         console.assert(typeof postData.content === 'string', 'postData.content is not a string');
@@ -105,23 +105,26 @@ module.exports = function (Posts) {
             const block = /\$\$([\s\S]*?)\$\$/g; // regex to match $$...$$
             const inline = /\$([\s\S]*?)\$/g; // regex to match $...$
 
+            // eslint-disable-next-line no-unused-vars
             const replaceBlock = function (match, p1, offset, string) {
                 // chose to only render using mathml, sacrificing compatibility
                 // with older browsers for better performance
-                return katex.renderToString(p1, {displayMode: true, output: 'mathml'});
+                return katex.renderToString(p1, { displayMode: true, output: 'mathml' });
             };
+            // eslint-disable-next-line no-unused-vars
             const replaceInline = function (match, p1, offset, string) {
-                return katex.renderToString(p1, {displayMode: false, output: 'mathml'});
-            }
+                return katex.renderToString(p1, { displayMode: false, output: 'mathml' });
+            };
+
             try {
                 postData.content = postData.content.replace(block, replaceBlock).replace(inline, replaceInline);
-            } catch(a) {
+            } catch (a) {
                 winston.verbose(a.message);
             }
 
             console.assert(typeof postData === 'object', 'postData is not an object');
             console.assert(typeof postData.content === 'string', 'postData.content is not a string');
-        }
+        };
 
 
         const data = await plugins.hooks.fire('filter:parse.post', { postData: postData });
