@@ -87,13 +87,13 @@
                     <tr>
                         <th align="left">
                             <a href="https://github.com/CMU-313/spring24-nodebb-10/commits?author=vynttran&since=2024-01-20T00:00:00-05:00&until=2024-03-29T23:59:00-05:00">
-                            Commit: 3
+                            Commit: 4
                             </a>
                         </th>
                     </tr>
                     <tr>
                         <th align="left">
-                            Addition: 22
+                            Addition: 23
                         </th>
                     </tr>
                     <tr>
@@ -174,7 +174,7 @@
                     <tr>
                         <th align="left">
                             <a href="https://github.com/CMU-313/spring24-nodebb-10/pulls?q=author%3AtarunBandi-ONE+type%3Apr+created%3A2024-01-20T00:00:00-05:00..2024-03-29T23:59:00-05:00">
-                            PRs: 2
+                            PRs: 3
                             </a>
                         </th>
                     <tr>
