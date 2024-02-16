@@ -91,6 +91,12 @@
         </a>
     </li>
 
+    <li>
+    <a role="menuitem" tabindex="-1" href="#" data-action="endorse-post">
+        <i class="fa fa-fw fa-thumbs-up"></i> Endorse Post
+    </a>
+    </li>
+
     <!-- IF postSharing.length -->
     <!-- IF config.loggedIn --><li class="divider"></li><!-- ENDIF config.loggedIn -->
     <li class="dropdown-header">[[topic:share_this_post]]</li>
