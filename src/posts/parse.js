@@ -76,13 +76,14 @@ module.exports = function (Posts) {
        };
     */
     Posts.parsePost = async function (postData) {
+        if (!postData) {
+            return postData;
+        }
+
         // Assert the type of input is correct, and that the content is a string
         console.assert(typeof postData === 'object', 'postData.pid is not an object');
         console.assert(typeof postData.content === 'string', 'postData.content is not a string');
 
-        if (!postData) {
-            return postData;
-        }
         postData.content = String(postData.content || '');
         const cache = require('./cache');
         const pid = String(postData.pid);
