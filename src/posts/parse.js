@@ -75,6 +75,49 @@ module.exports = function (Posts) {
            replies: number;
        };
     */
+
+    /*
+        * Renders LaTeX code into MathML using KaTeX
+        * @param {object} postData - the post object, same type definition as input to Post.parsePost
+        * @return {object} postData - the post object with LaTeX code rendered into MathML
+        * @throws {Error} - if the rendering fails
+    */
+    const render_latex = async function (postData) {
+        if (!postData) {
+            return postData;
+        }
+
+        // assert types of input, documentation for JS
+        if (typeof postData !== 'object' || typeof postData.content !== 'string') {
+            throw new Error('[[error:invalid-data]]');
+        }
+
+        const block = /\$\$([\s\S]*?)\$\$/g; // regex to match $$...$$
+        const inline = /\$([\s\S]*?)\$/g; // regex to match $...$
+
+        // eslint-disable-next-line no-unused-vars
+        const replaceBlock = function (match, p1, offset, string) {
+            // chose to only render using mathml, sacrificing compatibility
+            // with older browsers for better performance
+            return katex.renderToString(p1, { displayMode: true, output: 'mathml' });
+        };
+        // eslint-disable-next-line no-unused-vars
+        const replaceInline = function (match, p1, offset, string) {
+            return katex.renderToString(p1, { displayMode: false, output: 'mathml' });
+        };
+
+        try {
+            postData.content = postData.content.replace(block, replaceBlock).replace(inline, replaceInline);
+        } catch (a) {
+            winston.verbose(a.message);
+        }
+
+        console.assert(typeof postData === 'object', 'postData is not an object');
+        console.assert(typeof postData.content === 'string', 'postData.content is not a string');
+    };
+
+    Posts.renderLatex = render_latex;
+
     Posts.parsePost = async function (postData) {
         if (!postData) {
             return postData;
@@ -93,44 +136,9 @@ module.exports = function (Posts) {
             return postData;
         }
 
-        /*
-            * Renders LaTeX code into MathML using KaTeX
-            * @param {object} postData - the post object, same type definition as input to Post.parsePost
-            * @return {object} postData - the post object with LaTeX code rendered into MathML
-            * @throws {Error} - if the rendering fails
-        */
-        const renderLatex = function (postData) {
-            console.assert(typeof postData === 'object', 'postData.pid is not an object');
-            console.assert(typeof postData.content === 'string', 'postData.content is not a string');
-
-            const block = /\$\$([\s\S]*?)\$\$/g; // regex to match $$...$$
-            const inline = /\$([\s\S]*?)\$/g; // regex to match $...$
-
-            // eslint-disable-next-line no-unused-vars
-            const replaceBlock = function (match, p1, offset, string) {
-                // chose to only render using mathml, sacrificing compatibility
-                // with older browsers for better performance
-                return katex.renderToString(p1, { displayMode: true, output: 'mathml' });
-            };
-            // eslint-disable-next-line no-unused-vars
-            const replaceInline = function (match, p1, offset, string) {
-                return katex.renderToString(p1, { displayMode: false, output: 'mathml' });
-            };
-
-            try {
-                postData.content = postData.content.replace(block, replaceBlock).replace(inline, replaceInline);
-            } catch (a) {
-                winston.verbose(a.message);
-            }
-
-            console.assert(typeof postData === 'object', 'postData is not an object');
-            console.assert(typeof postData.content === 'string', 'postData.content is not a string');
-        };
-
-
         const data = await plugins.hooks.fire('filter:parse.post', { postData: postData });
 
-        renderLatex(data.postData); // render latex just before we translate the content
+        render_latex(data.postData); // render latex just before we translate the content
 
         data.postData.content = translator.escape(data.postData.content);
         if (data.postData.pid) {

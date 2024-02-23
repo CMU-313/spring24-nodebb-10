@@ -815,6 +815,61 @@ describe('Post\'s', () => {
         });
     });
 
+    // Test cases added for renderLatex
+    describe('renderLatex', () => {
+        it('should throw error if postData is not an object', () => {
+            const invalidInput = 123;
+            try {
+                posts.renderLatex(invalidInput, () => {});
+            } catch (err) {
+                assert.equal(err.message, '[[error:invalid-data]]');
+            }
+        });
+
+        it('should throw error if postData.content is not a string', () => {
+            const invalidInput = { content: 123 };
+            try {
+                posts.renderLatex(invalidInput, () => {});
+            } catch (err) {
+                assert.equal(err.message, '[[error:invalid-data]]');
+            }
+        });
+
+        it('should not throw error if postData is an object', () => {
+            const validInput = { content: 'some content' };
+            try {
+                posts.renderLatex(validInput, () => {});
+            } catch (err) {
+                assert.ifError(err);
+            }
+        });
+
+        it('should not throw error if postData.content is a string', () => {
+            const validInput = { content: 'some content' };
+            try {
+                posts.renderLatex(validInput, () => {});
+            } catch (err) {
+                assert.ifError(err);
+            }
+        });
+
+        it('should replace inline latex with mathml', () => {
+            const input = { content: 'Equation $x=y$ is here' };
+            posts.renderLatex(input, (err, postData) => {
+                assert.ifError(err);
+                assert.equal(postData.content, 'Equation <span class="math">x=y</span> is here');
+            });
+        });
+
+        it('should replace block latex with mathml', () => {
+            const input = { content: 'Equation $$x=y$$ is here' };
+            posts.renderLatex(input, (err, postData) => {
+                assert.ifError(err);
+                assert.equal(postData.content, 'Equation <span class="math">x=y</span> is here');
+            });
+        });
+    });
+
     describe('socket methods', () => {
         let pid;
         before((done) => {
@@ -1230,6 +1285,7 @@ describe('Post\'s', () => {
     });
 });
 
+
 describe('Posts\'', async () => {
     let files;
 
@@ -1243,3 +1299,4 @@ describe('Posts\'', async () => {
         });
     });
 });
+
