@@ -16,12 +16,35 @@ module.exports = function (Posts) {
         if (parseInt(uid, 10) <= 0) {
             throw new Error('[[error:not-logged-in]]');
         }
-        const [postData, hasBookmarked] = await Promise.all([
-            Posts.getPostFields(pid, ['pid', 'uid']),
-            Posts.hasBookmarked(pid, uid),
-        ]);
+
+        const isEndorsed = await Posts.getPostField(pid, 'endorsements');
+
+        if(isEndorsed === 1){
+            throw new Error('[[error:already-endorsed]]');
+        }
+
+        await db.setObjectField(`post:${pid}`, 'endorsements', 1);
+
+        // get the username and put a checkmark next to the user if the post has been endorsed
+        const username = await db.getObjectField(`user:${uid}`, 'username');
+        await db.setObjectField(`post:${pid}`, `endorsement:${username}`, 'endorsed');
+
+        plugins.hooks.fire(`action:post.${type}`, {
+            pid: pid,
+            uid: uid,
+            owner: postData.uid,
+            current: 'endorsed',
+        });
+
+        return {
+            post: postData,
+            isEndorsed: true,
+        };
 
     }
+
+
+
 
     // async function toggleendorsement(type, pid, uid) {
     //     if (parseInt(uid, 10) <= 0) {
