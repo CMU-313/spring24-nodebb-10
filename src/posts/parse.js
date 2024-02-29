@@ -188,7 +188,7 @@ module.exports = function (Posts) {
 
     function filterProfanity(content) {
         // string -> string
-        content = content || "_";
+        content = content || '_';
         const filter = new Filter();
         const cleaned = filter.clean(content);
         console.assert(typeof cleaned === 'string');
