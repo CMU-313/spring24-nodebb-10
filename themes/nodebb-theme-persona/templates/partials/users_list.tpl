@@ -8,7 +8,7 @@
             <a href="{config.relative_path}/user/{users.userslug}">{users.username}</a>
         </span>
         <br/>
-
+        
         <!-- IF section_online -->
         <div class="lastonline">
             <span class="timeago" title="{users.lastonlineISO}"></span>
