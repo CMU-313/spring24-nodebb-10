@@ -69,6 +69,8 @@ get:
                           type: number
                         upvotes:
                           type: number
+                        endorsements:
+                          type: number
                         downvotes:
                           type: number
                         bookmarks:

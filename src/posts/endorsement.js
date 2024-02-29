@@ -100,3 +100,52 @@ module.exports = function (Posts) {
         return await db.isSetMember(`pid:${pid}:users_endorsemented`, uid);
     };
 };
+// 'use strict';
+
+// const db = require('../database');
+// const plugins = require('../plugins');
+
+// module.exports = function (Posts) {
+//     Posts.endorsement = async function (pid, uid) {
+//         return await toggleEndorsement('endorsement', pid, uid);
+//     };
+
+//     Posts.unendorsement = async function (pid, uid) {
+//         return await toggleEndorsement('unendorsement', pid, uid);
+//     };
+
+//     async function toggleEndorsement(type, pid, uid) {
+//         if (parseInt(uid, 10) <= 0) {
+//             throw new Error('[[error:not-logged-in]]');
+//         }
+
+//         const isEndorsed = await Posts.getPostField(pid, 'endorsements');
+
+//         if (isEndorsed) {
+//             throw new Error('[[error:already-endorsed]]');
+//         }
+
+//         await db.setObjectField(`post:${pid}`, 'endorsements', 1);
+
+//         // Fire a hook to perform any additional actions on endorsement
+//         plugins.hooks.fire(`action:post.${type}`, {
+//             pid: pid,
+//             uid: uid,
+//             current: 'endorsed',
+//         });
+
+//         return {
+//             isEndorsed: true,
+//         };
+//     }
+
+//     Posts.hasEndorsed = async function (pid, uid) {
+//         if (parseInt(uid, 10) <= 0) {
+//             return false;
+//         }
+
+//         const isEndorsed = await Posts.getPostField(pid, 'endorsements');
+
+//         return !!isEndorsed;
+//     };
+// };

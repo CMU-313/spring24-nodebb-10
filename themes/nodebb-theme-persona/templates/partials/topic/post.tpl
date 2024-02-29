@@ -13,6 +13,7 @@
 
         <!-- IMPORT partials/topic/badge.tpl -->
 
+
         <!-- IF posts.user.banned -->
         <span class="label label-danger">[[user:banned]]</span>
         <!-- ENDIF posts.user.banned -->
@@ -78,6 +79,9 @@
 
     <small class="pull-right">
         <!-- IMPORT partials/topic/reactions.tpl -->
+        <!-- IF posts.isEndorsed -->
+            &#127802; endorsed by instructor
+        <!-- ENDIF posts.isEndorsed -->
         <span class="post-tools">
             <a component="post/reply" href="#" class="no-select <!-- IF !privileges.topics:reply -->hidden<!-- ENDIF !privileges.topics:reply -->">[[topic:reply]]</a>
             <a component="post/quote" href="#" class="no-select <!-- IF !privileges.topics:reply -->hidden<!-- ENDIF !privileges.topics:reply -->">[[topic:quote]]</a>
