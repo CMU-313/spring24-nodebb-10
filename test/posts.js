@@ -853,20 +853,28 @@ describe('Post\'s', () => {
             }
         });
 
-        it('should replace inline latex with mathml', () => {
-            const input = { content: 'Equation $x=y$ is here' };
-            posts.renderLatex(input, (err, postData) => {
+        it('should render inline latex into mathml', () => {
+            const validInput = { content: '$\\beta = 10$' };
+
+            const callback = (err, postData) => {
                 assert.ifError(err);
-                assert.equal(postData.content, 'Equation <span class="math">x=y</span> is here');
-            });
+                const expectedOutput = '<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\\beta = 10</annotation></semantics></math></span>';
+                assert.equal(postData.content, expectedOutput);
+            };
+
+            posts.renderLatex(validInput, callback);
         });
 
-        it('should replace block latex with mathml', () => {
-            const input = { content: 'Equation $$x=y$$ is here' };
-            posts.renderLatex(input, (err, postData) => {
+        it('should render block latex into mathml', () => {
+            const validInput = { content: '$$\\beta = 10$$' };
+
+            const callback = (err, postData) => {
                 assert.ifError(err);
-                assert.equal(postData.content, 'Equation <span class="math">x=y</span> is here');
-            });
+                const expectedOutput = '<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>β</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\\beta = 10</annotation></semantics></math></span>';
+                assert.equal(postData.content, expectedOutput);
+            };
+
+            posts.renderLatex(validInput, callback);
         });
     });
 

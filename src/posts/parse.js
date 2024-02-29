@@ -114,6 +114,8 @@ module.exports = function (Posts) {
 
         console.assert(typeof postData === 'object', 'postData is not an object');
         console.assert(typeof postData.content === 'string', 'postData.content is not a string');
+
+        return postData;
     };
 
     Posts.renderLatex = render_latex;
