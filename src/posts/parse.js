@@ -195,7 +195,7 @@ module.exports = function (Posts) {
     }
 
     Posts.sanitize = function (content) {
-        content = (content || '');
+        content = (content || '*');
         return sanitize(filterProfanity(content), {
             allowedTags: sanitizeConfig.allowedTags,
             allowedAttributes: sanitizeConfig.allowedAttributes,
