@@ -188,6 +188,7 @@ module.exports = function (Posts) {
 
     function filterProfanity(content) {
         // string -> string
+        content = content || "_";
         const filter = new Filter();
         const cleaned = filter.clean(content);
         console.assert(typeof cleaned === 'string');
@@ -195,7 +196,6 @@ module.exports = function (Posts) {
     }
 
     Posts.sanitize = function (content) {
-        content = (content || '*');
         return sanitize(filterProfanity(content), {
             allowedTags: sanitizeConfig.allowedTags,
             allowedAttributes: sanitizeConfig.allowedAttributes,
