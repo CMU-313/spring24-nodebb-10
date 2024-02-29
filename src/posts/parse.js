@@ -53,7 +53,7 @@ module.exports = function (Posts) {
         }
         postData.content = String(postData.content || '');
         const cache = require('./cache');
-        const pid = String(postData.pid);   
+        const pid = String(postData.pid);
         const cachedContent = cache.get(pid);
         if (postData.pid && cachedContent !== undefined) {
             postData.content = cachedContent;
@@ -108,11 +108,9 @@ module.exports = function (Posts) {
         return content;
     };
 
-    function filterProfanity(content)
-    //string -> string
-    {
+    function filterProfanity(content) {
+        // string -> string
         const filter = new Filter();
-        
         const cleaned = filter.clean(content);
         console.assert(typeof cleaned === 'string');
         return cleaned;
