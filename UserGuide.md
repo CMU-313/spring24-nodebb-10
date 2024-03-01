@@ -9,7 +9,7 @@ Inline LaTeX Syntax: To render mathematical expressions or formatted text inline
 - End Inline LaTeX Syntax: Close the inline LaTeX code by typing another $. 
 
 Example:
-To represent the quadratic formula \( ax^2 + bx + c = 0 \) inline, you would enter: \\$ax^2 + bx + c = 0\\$.
+To represent the quadratic formula \( ax^2 + bx + c = 0 \) inline, you would enter: \$ax^2 + bx + c = 0\$.
 
 **Block LaTeX Syntax** :
 For more complex mathematical expressions or larger blocks of formatted text, you can utilize block LaTeX syntax. Follow these steps: 
@@ -18,7 +18,7 @@ For more complex mathematical expressions or larger blocks of formatted text, yo
 - End Block LaTeX Syntax: Close the block LaTeX code by typing another $$.
 
 Example: 
-To display the equation of a circle in block format, you would write \\$\\$ (x - h)^2 + (y - k)^2 = r^2 \\$\\$. 
+To display the equation of a circle in block format, you would write \$\$ (x - h)^2 + (y - k)^2 = r^2 \$\$. 
 
 **Our Testing of This Feature** : 
 Automated tests for the feature were added to the rest of the existing tests, which can be found in tests/posts.js. The renderLatex test suite validates posts.js function's behavior when rendering LaTeX expressions. It includes tests to ensure that the function appropriately handles invalid input by throwing errors when postData is not an object or when its content property is not a string. Additionally, it verifies that the function successfully renders both inline and block LaTeX expressions into MathML, ensuring that the rendered content is valid MathML expressions. This is done by passing in an example content with latex syntax such as $x^2$, and asserting that the rendered string is valid MathML. 
