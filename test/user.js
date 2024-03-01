@@ -81,6 +81,16 @@ describe('User', () => {
             await User.email.confirmByUid(testUid);
         });
 
+        // Test that the created TA account type is stored properly in the
+        // user field, with the create() function
+        it('should create TA account type properly', async () => {
+            const uid = await User.create({ username: 'testTA', password: '123456', email: 'test@emai.com', accounttype: 'TA' });
+            assert.ok(uid);
+
+            const data = await User.getUserData(uid);
+            assert.strictEqual(data.accounttype, 'TA');
+        })
+
         it('should be created properly', async () => {
             const email = '<h1>test</h1>@gmail.com';
             const uid = await User.create({ username: 'weirdemail', email: email });
@@ -2101,7 +2111,7 @@ describe('User', () => {
                 gdpr_consent: true,
             }, (err) => {
                 assert.ifError(err);
-                socketUser.acceptRegistration({ uid: adminUid }, { username: 'acceptme' }, (err, uid) => {
+                socketUser.acceptRegistration({ uid: adminUid }, { username: 'acceptme123' }, (err, uid) => {
                     assert.ifError(err);
                     User.exists(uid, (err, exists) => {
                         assert.ifError(err);
@@ -2113,14 +2123,6 @@ describe('User', () => {
                         });
                     });
                 });
-            });
-        });
-
-        it('should update the user acounts type field accurately', (done) => {
-            User.getUserField('acceptme123', 'account:type', (err, accountType) => {
-                assert.ifError(err);
-                assert.strictEqual(accountType, 'TA');
-                done();
             });
         });
 
