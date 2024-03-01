@@ -364,6 +364,18 @@ define('forum/topic/postTools', [
         return false;
     }
 
+    function endorsePost(pid) {
+        const method = 'put';
+
+        api[method](`/posts/${pid}/endorse`, undefined, function (err) {
+            if (err) {
+                return alerts.error(err);
+            }
+            hooks.fire(`action:post.endorse`, { pid: pid });
+        });
+        return false;
+    }
+
     function getData(button, data) {
         return button.parents('[data-pid]').attr(data);
     }
