@@ -4,9 +4,9 @@
 
 **How to User Test** : 
 Inline LaTeX Syntax: To render mathematical expressions or formatted text inline within your post, follow these steps: 
-Begin Inline LaTeX Syntax: Type $ to indicate the start of your inline LaTeX code. 
-Enter LaTeX Code: Between the dollar signs, input your desired LaTeX code representing the mathematical expression or formatted text. 
-End Inline LaTeX Syntax: Close the inline LaTeX code by typing another $. 
+- Begin Inline LaTeX Syntax: Type $ to indicate the start of your inline LaTeX code. 
+- Enter LaTeX Code: Between the dollar signs, input your desired LaTeX code representing the mathematical expression or formatted text. 
+- End Inline LaTeX Syntax: Close the inline LaTeX code by typing another $. 
 
 Example:
 To represent the quadratic formula \( ax^2 + bx + c = 0 \) inline, you would enter: $ax^2 + bx + c = 0$.
