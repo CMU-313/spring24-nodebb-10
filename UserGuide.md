@@ -14,7 +14,7 @@ To represent the quadratic formula \( ax^2 + bx + c = 0 \) inline, you would ent
 **Block LaTeX Syntax** :
 For more complex mathematical expressions or larger blocks of formatted text, you can utilize block LaTeX syntax. Follow these steps: 
 - Begin Block LaTeX Syntax: Type $$ to indicate the start of your block LaTeX code. 
-- Enter LaTeX Code: Inside the $$...$$, input your desired LaTeX code representing the mathematical expression or formatted text.
+- Enter LaTeX Code: Between the dollar signs, input your desired LaTeX code representing the mathematical expression or formatted text.
 - End Block LaTeX Syntax: Close the block LaTeX code by typing another $$.
 
 Example: 
@@ -42,4 +42,4 @@ To verify that normal posts aren’t filtered, simply create a post with no prof
 
 **Our Testing of This Feature** : 
 
-The tests can also be found src/posts/parse.js, where the feature itself is implemented. These tests are sufficient because the entire feature surrounds whether an input containing words marked as profanity can be properly starred out, which is what the tests directly test for. 
+The tests can also be found tests/posts.js. These tests are sufficient because the entire feature surrounds whether an input containing words marked as profanity can be properly starred out, which is what the tests directly test for. We also have edge cases checked for, and ensured that posts are correctly modified, but also posts that are clean are left untouched.
