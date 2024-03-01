@@ -6,7 +6,7 @@ const winston = require('winston');
 const sanitize = require('sanitize-html');
 const _ = require('lodash');
 const katex = require('katex'); // Added for latex rendering in posts
-
+const Filter = require('bad-words');
 const meta = require('../meta');
 const plugins = require('../plugins');
 const translator = require('../translator');
@@ -195,9 +195,21 @@ module.exports = function (Posts) {
 
         return content;
     };
+    const filterProfanity = function (content) {
+        // string -> string
+        content = content || '_';
+        const filter = new Filter();
+        let cleaned = filter.clean(content);
+        console.assert(typeof cleaned === 'string');
+        if (cleaned === '_') {
+            cleaned = '';
+        }
+        return cleaned;
+    };
+    Posts.filterProfanity = filterProfanity;
 
     Posts.sanitize = function (content) {
-        return sanitize(content, {
+        return sanitize(filterProfanity(content), {
             allowedTags: sanitizeConfig.allowedTags,
             allowedAttributes: sanitizeConfig.allowedAttributes,
             allowedClasses: sanitizeConfig.allowedClasses,
