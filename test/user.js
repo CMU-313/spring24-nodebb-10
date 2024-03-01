@@ -2091,6 +2091,39 @@ describe('User', () => {
             });
         });
 
+        it('should accept user registration of type TA', (done) => {
+            helpers.registerUser({
+                username: 'acceptme123',
+                password: '12345632456',
+                'password-confirm': '12345632456',
+                'account-type': 'TA',
+                email: 'accept3456@me.com',
+                gdpr_consent: true,
+            }, (err) => {
+                assert.ifError(err);
+                socketUser.acceptRegistration({ uid: adminUid }, { username: 'acceptme' }, (err, uid) => {
+                    assert.ifError(err);
+                    User.exists(uid, (err, exists) => {
+                        assert.ifError(err);
+                        assert(exists);
+                        User.getRegistrationQueue(0, -1, (err, users) => {
+                            assert.ifError(err);
+                            assert.equal(users.length, 0);
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+
+        it('should update the user acounts type field accurately', (done) => {
+            User.getUserField('acceptme123', 'account:type', (err, accountType) => {
+                assert.ifError(err);
+                assert.strictEqual(accountType, 'TA');
+                done();
+            });
+        });
+
         it('should accept user registration', (done) => {
             helpers.registerUser({
                 username: 'acceptme',
