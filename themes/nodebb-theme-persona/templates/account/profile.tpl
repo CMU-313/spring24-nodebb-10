@@ -4,6 +4,14 @@
     <div class="profile row">
         <h1 class="fullname"><!-- IF fullname -->{fullname}<!-- ELSE -->{username}<!-- ENDIF fullname --></h1>
         <h2 class="username"><!-- IF !banned -->@{username}<!-- ELSE -->[[user:banned]]<!-- ENDIF !banned --></h2>
+        <h3 class="accounttype" style="text-align: center;">
+            <!-- IF !banned -->
+            Account Type:
+            {accounttype}
+            <!-- ELSE -->
+            [[user:banned]]
+            <!-- ENDIF !banned -->
+        </h3>
         <!-- IF isAdminOrGlobalModeratorOrModerator -->
         <!-- IF banned -->
         <div class="text-center">
@@ -32,6 +40,11 @@
         <!-- ENDIF aboutme -->
 
         <div class="account-stats">
+            <div class="stat">
+                <div class="human-readable-number" title="{reputation}">{reputation}</div>
+                <span class="stat-label">[[global:reputation]]</span>
+            </div>
+
             <!-- IF !reputation:disabled -->
             <div class="stat">
                 <div class="human-readable-number" title="{reputation}">{reputation}</div>
