@@ -89,7 +89,7 @@ describe('User', () => {
 
             const data = await User.getUserData(uid);
             assert.strictEqual(data.accounttype, 'TA');
-        })
+        });
 
         it('should be created properly', async () => {
             const email = '<h1>test</h1>@gmail.com';
