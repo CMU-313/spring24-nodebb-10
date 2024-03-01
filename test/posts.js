@@ -815,44 +815,35 @@ describe('Post\'s', () => {
         });
     });
 
-    describe('profanity filtering', () => 
-    {
-        it('should filter profanity out', () => 
-        {
-            let input = "fuck off";
+    describe('profanity filtering', () => {
+        it('should filter profanity out', () => {
+            const input = 'fuck off';
             try {
-                let filteredString = posts.filterProfanity(input);
-                assert(filteredString === "**** off");
+                const filteredString = posts.filterProfanity(input);
+                assert(filteredString === '**** off');
             } catch (err) {
                 assert.equal(err.message, '[[error:invalid-data]]');
             }
         });
-        it('should leave normal messages unchanged', () => 
-        {
-            let input = "hi this is a positive message";
+        it('should leave normal messages unchanged', () => {
+            const input = 'hi this is a positive message';
             try {
-                let filteredString = posts.filterProfanity(input);
+                const filteredString = posts.filterProfanity(input);
                 assert(filteredString === input);
             } catch (err) {
                 assert.equal(err.message, '[[error:invalid-data]]');
             }
         });
-
-        it('should not fail on an empty string', () => 
-        {
-            let input = "";
+        it('should not fail on an empty string', () => {
+            const input = '';
             try {
-                let filteredString = posts.filterProfanity(input);
+                const filteredString = posts.filterProfanity(input);
                 assert(filteredString === input);
             } catch (err) {
                 assert.equal(err.message, '[[error:invalid-data]]');
             }
         });
-
     });
-
-
-    
 
     describe('socket methods', () => {
         let pid;
