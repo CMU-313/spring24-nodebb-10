@@ -185,15 +185,17 @@ module.exports = function (Posts) {
 
         return content;
     };
-
-    function filterProfanity(content) {
+    const filterProfanity = function (content) {
         // string -> string
         content = content || '_';
         const filter = new Filter();
-        const cleaned = filter.clean(content);
+        let cleaned = filter.clean(content);
         console.assert(typeof cleaned === 'string');
+        if (cleaned === "_")
+            cleaned = ""
         return cleaned;
-    }
+    };
+    Posts.filterProfanity = filterProfanity;
 
     Posts.sanitize = function (content) {
         return sanitize(filterProfanity(content), {
