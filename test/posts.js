@@ -815,6 +815,69 @@ describe('Post\'s', () => {
         });
     });
 
+    // Test cases added for renderLatex
+    describe('renderLatex', () => {
+        it('should throw error if postData is not an object', () => {
+            const invalidInput = 123;
+            try {
+                posts.renderLatex(invalidInput, () => {});
+            } catch (err) {
+                assert.equal(err.message, '[[error:invalid-data]]');
+            }
+        });
+
+        it('should throw error if postData.content is not a string', () => {
+            const invalidInput = { content: 123 };
+            try {
+                posts.renderLatex(invalidInput, () => {});
+            } catch (err) {
+                assert.equal(err.message, '[[error:invalid-data]]');
+            }
+        });
+
+        it('should not throw error if postData is an object', () => {
+            const validInput = { content: 'some content' };
+            try {
+                posts.renderLatex(validInput, () => {});
+            } catch (err) {
+                assert.ifError(err);
+            }
+        });
+
+        it('should not throw error if postData.content is a string', () => {
+            const validInput = { content: 'some content' };
+            try {
+                posts.renderLatex(validInput, () => {});
+            } catch (err) {
+                assert.ifError(err);
+            }
+        });
+
+        it('should render inline latex into mathml', () => {
+            const validInput = { content: '$\\beta = 10$' };
+
+            const callback = (err, postData) => {
+                assert.ifError(err);
+                const expectedOutput = '<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\\beta = 10</annotation></semantics></math></span>';
+                assert.equal(postData.content, expectedOutput);
+            };
+
+            posts.renderLatex(validInput, callback);
+        });
+
+        it('should render block latex into mathml', () => {
+            const validInput = { content: '$$\\beta = 10$$' };
+
+            const callback = (err, postData) => {
+                assert.ifError(err);
+                const expectedOutput = '<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>β</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\\beta = 10</annotation></semantics></math></span>';
+                assert.equal(postData.content, expectedOutput);
+            };
+
+            posts.renderLatex(validInput, callback);
+        });
+    });
+
     describe('profanity filtering', () => {
         it('should filter profanity out', () => {
             const input = 'fuck off';
@@ -1260,6 +1323,7 @@ describe('Post\'s', () => {
     });
 });
 
+
 describe('Posts\'', async () => {
     let files;
 
@@ -1273,3 +1337,4 @@ describe('Posts\'', async () => {
         });
     });
 });
+

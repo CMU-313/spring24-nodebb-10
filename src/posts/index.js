@@ -70,6 +70,9 @@ Posts.getPidIndex = async function (pid, tid, topicPostSort) {
     return utils.isNumber(index) ? parseInt(index, 10) + 1 : 0;
 };
 
+
+
+
 Posts.getPostIndices = async function (posts, uid) {
     if (!Array.isArray(posts) || !posts.length) {
         return [];
