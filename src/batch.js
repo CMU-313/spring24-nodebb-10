@@ -1,6 +1,7 @@
 
 'use strict';
 
+// Variables
 const util = require('util');
 
 const db = require('./database');
