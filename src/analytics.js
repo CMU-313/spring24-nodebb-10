@@ -1,5 +1,6 @@
 'use strict';
 
+// Variables
 const cronJob = require('cron').CronJob;
 const winston = require('winston');
 const nconf = require('nconf');
