@@ -1,5 +1,6 @@
 'use strict';
 
+// Variables
 const nconf = require('nconf');
 const validator = require('validator');
 
