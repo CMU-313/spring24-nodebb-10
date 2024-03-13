@@ -14,7 +14,10 @@
         "lint": "npx tsc && eslint --cache ./nodebb .",
         "test": "npx tsc && nyc --reporter=html --reporter=text-summary mocha",
         "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info",
-        "coveralls": "nyc report --reporter=text-lcov | coveralls && rm -r coverage"
+        "coveralls": "nyc report --reporter=text-lcov | coveralls && rm -r coverage",
+        "build": "flow-remove-types src/ -d lib/",
+        "prepublish": "yarn run build",
+        "flow": "flow"
     },
     "nyc": {
         "exclude": [
@@ -148,6 +151,7 @@
         "zxcvbn": "4.4.2"
     },
     "devDependencies": {
+        "flow-bin": "^0.230.0",
         "@apidevtools/swagger-parser": "^10.1.0",
         "@commitlint/cli": "17.3.0",
         "@commitlint/config-angular": "17.3.0",
