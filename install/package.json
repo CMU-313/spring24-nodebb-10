@@ -15,6 +15,7 @@
         "test": "npx tsc && nyc --reporter=html --reporter=text-summary mocha",
         "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info",
         "coveralls": "nyc report --reporter=text-lcov | coveralls && rm -r coverage",
+        "babel-version": "babel --version",
         "build": "babel src/ -d lib/",
         "prepublish": "yarn run build",
         "flow": "flow"
@@ -178,7 +179,8 @@
         "nyc": "15.1.0",
         "smtp-server": "3.11.0",
         "typescript": "^4.9.4",
-        "flow-bin": "^0.230.0"
+        "flow-bin": "^0.230.0",
+        "babel-cli": "^6.6.5"
     },
     "resolutions": {
         "*/jquery": "3.6.3"
