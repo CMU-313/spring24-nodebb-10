@@ -180,7 +180,8 @@
         "smtp-server": "3.11.0",
         "typescript": "^4.9.4",
         "flow-bin": "^0.230.0",
-        "babel-cli": "^6.6.5"
+        "babel-cli": "^6.6.5",
+        "babel-preset-flow": "^6.23.0"
     },
     "resolutions": {
         "*/jquery": "3.6.3"
