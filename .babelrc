@@ -1,7 +1,1 @@
-<<<<<<< HEAD
-{ "presets": ["flow"],
-  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
-}
-=======
 { "presets": ["@babel/preset-flow"] }
->>>>>>> parent of eb898a4 (added more script)
