@@ -114,8 +114,8 @@ const configExists =
 prestart.loadConfig(configFile);
 prestart.versionCheck();
 
-if (!configExists && process.argv[2] !== "setup") {
-    require("./setup").webInstall();
+if (!configExists && process.argv[2] !== 'setup') {
+    require('./setup').webInstall();
     return;
 }
 
