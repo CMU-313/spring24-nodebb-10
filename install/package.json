@@ -13,12 +13,7 @@
         "start": "npx tsc && node loader.js",
         "lint": "npx tsc && eslint --cache ./nodebb .",
         "test": "npx tsc && nyc --reporter=html --reporter=text-summary mocha",
-        "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info",
-        // "coveralls": "nyc report --reporter=text-lcov | coveralls && rm -r coverage",
-        // "babel-version": "babel --version",
-        // "build": "babel src/ -d lib/",
-        // "prepublish": "yarn run build",
-        // "flow": "flow"
+        "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info"
     },
     "nyc": {
         "exclude": [
