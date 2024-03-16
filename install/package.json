@@ -14,7 +14,8 @@
         "lint": "npx tsc && eslint --cache ./nodebb .",
         "test": "npx tsc && nyc --reporter=html --reporter=text-summary mocha",
         "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info",
-        "coveralls": "nyc report --reporter=text-lcov | coveralls && rm -r coverage"
+        "coveralls": "nyc report --reporter=text-lcov | coveralls && rm -r coverage",
+        "fuzz": "npx jazzer test/password_fuzzing"
     },
     "nyc": {
         "exclude": [
@@ -159,6 +160,7 @@
         "@types/validator": "^13.7.0",
         "@typescript-eslint/eslint-plugin": "^5.48.0",
         "@typescript-eslint/parser": "^5.48.0",
+        "@jazzer.js/code": "^1.0.1",
         "coveralls": "3.1.1",
         "eslint": "^8.31.0",
         "eslint-config-nodebb": "0.2.1",
