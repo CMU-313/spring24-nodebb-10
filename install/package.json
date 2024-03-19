@@ -176,6 +176,9 @@
         "typescript": "^4.9.4",
         "flow-bin": "^0.230.0"
     },
+    "scripts": {
+        "flow": "flow"
+    },
     "resolutions": {
         "*/jquery": "3.6.3"
     },
