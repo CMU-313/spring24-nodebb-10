@@ -1,5 +1,7 @@
 'use strict';
 
+//@flow
+
 const nconf = require('nconf');
 const url = require('url');
 const winston = require('winston');
