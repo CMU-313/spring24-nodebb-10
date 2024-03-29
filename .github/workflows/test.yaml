@@ -88,6 +88,9 @@ jobs:
         with:
           useLockFile: false
 
+      - name: Install node-fetch
+        run: npm install node-fetch
+
       - name: Setup on MongoDB
         if: startsWith(matrix.database, 'mongo')
         env:
@@ -113,8 +116,8 @@ jobs:
               "port": 27017,
               "database": "ci_test"
             }
-        run: |
-          node app --setup="${SETUP}" --ci="${CI}"
+          TRANSLATOR_API: 'https://translatornew-zb65gnva3a-uc.a.run.app/'
+        run: node -r ./fetch-polyfill.js app --setup="${SETUP}" --ci="${CI}"
 
       - name: Setup on PostgreSQL
         if: startsWith(matrix.database, 'postgres')
