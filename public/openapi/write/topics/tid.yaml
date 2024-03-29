@@ -23,6 +23,8 @@ get:
                 $ref: ../../components/schemas/Status.yaml#/Status
               response:
                 $ref: ../../components/schemas/TopicObject.yaml#/TopicObjectSlim
+              isEnglish:  # Add this
+                type: boolean  # Assuming isEnglish is a boolean
 post:
   tags:
     - topics
@@ -64,6 +66,8 @@ post:
                 $ref: ../../components/schemas/Status.yaml#/Status
               response:
                 $ref: ../../components/schemas/PostObject.yaml#/PostObject
+              isEnglish:  # Add this
+                type: boolean  # Assuming isEnglish is a boolean
 delete:
   tags:
     - topics
