@@ -52,6 +52,10 @@ jobs:
         with:
           useLockFile: false
 
+      # Modified Step: Install node-fetch and update package.json
+      - name: Install node-fetch
+        run: npm install node-fetch
+
       - name: Setup on MongoDB
         env:
           SETUP: >-
@@ -76,8 +80,8 @@ jobs:
               "port": 27017,
               "database": "ci_test"
             }
-        run: |
-          node app --setup="${SETUP}" --ci="${CI}"
+          TRANSLATOR_API: 'https://translatornew-zb65gnva3a-uc.a.run.app/'
+        run: node -r ./fetch-polyfill.js app --setup="${SETUP}" --ci="${CI}"
 
       - name: Run Flow
         run: npm run flow
