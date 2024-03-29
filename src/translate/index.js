@@ -1,6 +1,5 @@
-'use strict'; // This ensures that the file operates in strict mode.
+'use strict';
 
-// Add a newline after 'use strict'; directive
 const fetch = require('node-fetch');
 
 const translatorApi = module.exports;
