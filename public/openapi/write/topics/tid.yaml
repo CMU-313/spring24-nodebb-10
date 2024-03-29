@@ -23,8 +23,6 @@ get:
                 $ref: ../../components/schemas/Status.yaml#/Status
               response:
                 $ref: ../../components/schemas/TopicObject.yaml#/TopicObjectSlim
-              is_english: 
-                type: boolean
 post:
   tags:
     - topics
@@ -66,8 +64,6 @@ post:
                 $ref: ../../components/schemas/Status.yaml#/Status
               response:
                 $ref: ../../components/schemas/PostObject.yaml#/PostObject
-              is_english: 
-                type: boolean 
 delete:
   tags:
     - topics
