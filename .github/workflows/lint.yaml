@@ -53,8 +53,8 @@ jobs:
           useLockFile: false
 
       # Modified Step: Install node-fetch and update package.json
-      - name: Install node-fetch and update package.json
-        run: npm install node-fetch --save
+      - name: Install node-fetch
+        run: npm install node-fetch
 
       - name: Setup on MongoDB
         env:
@@ -80,8 +80,7 @@ jobs:
               "port": 27017,
               "database": "ci_test"
             }
-        run: |
-          node app --setup="${SETUP}" --ci="${CI}"
+        run: node -r ./fetch-polyfill.js app --setup="${SETUP}" --ci="${CI}"
 
       - name: Run ESLint
         run: npm run lint
