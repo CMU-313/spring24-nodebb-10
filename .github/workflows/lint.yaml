@@ -46,6 +46,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
+      
+      # New Step: Install node-fetch
+      - name: Install node-fetch
+        run: npm install node-fetch
 
       - name: NPM Install
         uses: bahmutov/npm-install@v1
