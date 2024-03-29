@@ -46,15 +46,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-      
-      # New Step: Install node-fetch
-      - name: Install node-fetch
-        run: npm install node-fetch
-
+    
       - name: NPM Install
         uses: bahmutov/npm-install@v1
         with:
           useLockFile: false
+
+      # Modified Step: Install node-fetch and update package.json
+      - name: Install node-fetch and update package.json
+        run: npm install node-fetch --save
 
       - name: Setup on MongoDB
         env:
