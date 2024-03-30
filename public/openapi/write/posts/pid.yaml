@@ -64,6 +64,8 @@ get:
                     type: boolean
                   downvoted:
                     type: boolean
+                  isEnglish:
+                    type: boolean
 put:
   tags:
     - posts
@@ -113,6 +115,8 @@ put:
                         type: boolean
                       deleterUid:
                         type: number
+                      isEnglish:
+                        type: boolean
 delete:
   tags:
     - posts
