@@ -5,6 +5,8 @@ TopicObject:
       properties:
         lastposttime:
           type: number
+        isEnglish:
+          type: boolean
         category:
           type: object
           properties:

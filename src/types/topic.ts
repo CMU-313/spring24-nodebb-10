@@ -78,4 +78,5 @@ export type Thumb = {
 export type TopicSlimOptionalProperties = {
   tid: number;
   numThumbs: number;
+  isEnglish: boolean;
 };
