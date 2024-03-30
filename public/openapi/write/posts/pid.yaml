@@ -66,6 +66,10 @@ get:
                     type: boolean
                   isEnglish:
                     type: boolean
+                  translatedContent:   
+                    type: string
+                    # nullable: true     
+                    # description: Translated content of the post, if available
 put:
   tags:
     - posts
@@ -117,6 +121,10 @@ put:
                         type: number
                       isEnglish:
                         type: boolean
+                      translatedContent:   
+                        type: string
+                        # nullable: true     
+                        # description: Translated content of the post, if available
 delete:
   tags:
     - posts
